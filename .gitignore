@@ -1,0 +1,9 @@
+/.php_cs.cache
+uploads/images/
+uploads/files/
+outros/
+nbproject/
+vendor/
+includes/php/conn.php
+phinx.yml
+.env
