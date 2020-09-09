@@ -4,32 +4,32 @@ use Pecee\SimpleRouter\SimpleRouter;
 use App\Controllers\IndexController;
 use App\Controllers\DataController;
 
-SimpleRouter::get('/baseweb/', function() {
+SimpleRouter::get('/', function() {
     $admin = new IndexController();
     $admin->index();
 });
 
-SimpleRouter::get('/baseweb/dados', function() {
+SimpleRouter::get('/dados', function() {
     $admin = new DataController();
     $admin->verDados();
 });
 
-SimpleRouter::get('/baseweb/dado/{idDado}', function($idDado) {
+SimpleRouter::get('/dado/{idDado}', function($idDado) {
     $admin = new DataController();
     $admin->verDado($idDado);
 });
 
-SimpleRouter::delete('/baseweb/dado/{idDado}/delete', function($idDado) {
+SimpleRouter::delete('/dado/{idDado}/delete', function($idDado) {
     $admin = new DataController();
     $admin->removerDado($idDado);
 });
 
-SimpleRouter::put('/baseweb/dado', function() {
+SimpleRouter::put('/dado', function() {
     $admin = new DataController();
     $admin->alterarDado();
 });
 
-SimpleRouter::post('/baseweb/dado', function() {
+SimpleRouter::post('/dado', function() {
     $admin = new DataController();
     $admin->inserirDado();
 });

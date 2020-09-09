@@ -3,19 +3,15 @@
 namespace App\Controllers;
 
 use App\Templates;
-use PDO;
 
 use App\DB\Storage\DataStorage;
 
 class DataController
 {
-    protected $template;
-    
     protected $dataStorage;
 
     public function __construct()
     {
-        $this->template = new Templates();
         $this->dataStorage = new DataStorage();
     }
     
@@ -34,13 +30,11 @@ class DataController
         $args = [
             'DADOS' => $view
         ];
-        
-        $template 	= $this->template->getTemplate('dados.html');
-        $templateFinal = $this->template->parseTemplate($template, $args);
-        echo $templateFinal;
+
+        new Templates('dados.html', $args);
     }
     
-    public function verDado(int $idDado)
+    public function verDado($idDado)
     {
         $dado = $this->dataStorage->verDado($idDado);
         
@@ -48,10 +42,9 @@ class DataController
             'ID' => $dado->id,
             'DADO' => $dado->dado
         ];
-        
-        $template 	= $this->template->getTemplate('dado.html');
-        $templateFinal = $this->template->parseTemplate($template, $args);
-        echo $templateFinal;
+
+
+        new Templates('dados.html', $args);
     }
     
     public function inserirDado()
@@ -61,7 +54,7 @@ class DataController
         $dado = $data['dado'];
         
         $this->dataStorage->inserirDado($dado);
-        header('Location: /baseweb/dados');
+        header('Location: /dados');
     }
     
     public function alterarDado()
@@ -72,7 +65,7 @@ class DataController
         $dado = $data['dado'];
         
         $this->dataStorage->atualizarDado($id, $dado);
-        header('Location: /baseweb/dados');
+        header('Location: /dados');
     }
     
     public function removerDado($idDado)

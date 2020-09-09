@@ -12,16 +12,12 @@ use App\Templates;
 
 class IndexController
 {   
-    protected $template;
-
     public function __construct()
     {
-        $this->template = new Templates();
     }
     
     public function index()
     {
-        $templateFinal 	= $this->template->getTemplate('index.html');
-        echo $templateFinal;
+        new Templates('index.html');
     }
 }
