@@ -10,7 +10,7 @@ namespace App\Controllers;
 
 use App\Templates;
 
-class IndexController
+class MainController
 {   
     public function __construct()
     {

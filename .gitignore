@@ -1,10 +1,12 @@
-/.php_cs.cache
 uploads/images/
 uploads/files/
 outros/
 nbproject/
 vendor/
-includes/php/conn.php
+
+/.php_cs.cache
+/.idea
+
 phinx.yml
 .env
-/.idea
+composer.lock

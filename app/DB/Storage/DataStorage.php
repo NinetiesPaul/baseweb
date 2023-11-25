@@ -2,10 +2,10 @@
 
 namespace App\DB\Storage;
 
-use App\DB\DB;
+use App\DB\Conn;
 use PDO;
 
-class DataStorage extends DB
+class DataStorage extends Conn
 {   
     public function verDados()
     {
