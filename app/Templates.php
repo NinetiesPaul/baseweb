@@ -15,7 +15,7 @@ class Templates
         echo $template;
     }
 
-    private function getTemplate($template, $folder = "web/")
+    private function getTemplate($template, $folder = "templates/")
     {
         $arqTemp = $folder.$template; // criando var com caminho do arquivo
         $content = '';
@@ -29,7 +29,7 @@ class Templates
     
     private function parseTemplate($template, $array)
     {
-        foreach ($array as $a => $b) {// recebemos um array com as tags
+        foreach ($array as $a => $b) {
             if (strpos($a, 'list')) {
                 $template = str_replace('{'.$a.'}', json_encode($b), $template);
             } else {
@@ -37,6 +37,6 @@ class Templates
             }
         }
 
-        return $template; // retorno o html com conteúdo final
+        return $template;
     }
 }
