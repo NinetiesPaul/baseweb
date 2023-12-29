@@ -6,15 +6,20 @@ use App\DB\Model;
 
 class UsersModels extends Model
 {
-    public String $table_name = "users";
+    public $tableName = "users";
 
-    public array $model_columns = [
+    public $mappedFields = [
+        'id',
         'name',
         'email',
         'password'
     ];
 
-    public function __construct() {
-        parent::__construct($this->model_columns);
+    public $ignoreFields = [
+        'password'
+    ];
+
+    public function __construct($fields = []) {
+        parent::__construct($fields);
     }
 }

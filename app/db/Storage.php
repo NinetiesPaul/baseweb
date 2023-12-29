@@ -20,10 +20,4 @@ class Storage
 
         $this->conn = $pdo;
     }
-
-    public function save($model, $values)
-    {
-        $query = $this->conn->prepare("INSERT INTO $model->table_name ($model->columns) VALUES ($model->placeholders)");
-        $query->execute($values);
-    }
 }
