@@ -4,7 +4,7 @@ namespace App\DB\Models;
 
 use App\DB\Model;
 
-class UsersModels extends Model
+class Users extends Model
 {
     public $tableName = "users";
 

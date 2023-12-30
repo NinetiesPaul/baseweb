@@ -2,7 +2,7 @@
 
 namespace App\Http\Services;
 
-use App\DB\Models\UsersModels;
+use App\DB\Models\Users;
 use App\DB\Storage;
 
 class Authentication
@@ -16,7 +16,7 @@ class Authentication
 
     public function register($data)
     {
-        $user = new UsersModels([
+        $user = new Users([
             'name' => $data['name'],
             'password' => $data['password'],
             'email' => $data['email'],
@@ -27,7 +27,7 @@ class Authentication
 
     public function authenticate($data)
     {
-        $user = new UsersModels([]);
+        $user = new Users([]);
         return $user->find($data, true);
     }
 
