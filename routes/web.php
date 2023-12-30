@@ -25,11 +25,6 @@ SimpleRouter::post('/register', function() {
     $user->register();
 });
 
-SimpleRouter::post('/login', function() {
-    $auth = new AuthenticationController();
-    $auth->authenticateUser();
-});
-
 SimpleRouter::get('/home', function() {
     $user = new UserController();
     $user->home();
@@ -38,4 +33,9 @@ SimpleRouter::get('/home', function() {
 SimpleRouter::get('/logout', function() {
     $auth = new AuthenticationController();
     $auth->unauthenticateUser();
+});
+
+SimpleRouter::post('/login', function() {
+    $auth = new AuthenticationController();
+    $auth->authenticateUser();
 });
