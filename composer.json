@@ -3,7 +3,8 @@
         "robmorgan/phinx": "^0.11.1",
         "pecee/simple-router": "5.4.0.1",
         "vlucas/phpdotenv": "^4.0",
-        "guzzlehttp/guzzle": "^7.8"
+        "guzzlehttp/guzzle": "^7.8",
+        "twig/twig": "^3.8"
     },
     "autoload": {
         "psr-4": {

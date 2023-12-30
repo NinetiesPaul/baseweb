@@ -52,6 +52,12 @@
                     </div>
                     <button type="submit" id="btn" class="btn btn-primary btn-sm"><span class='glyphicon glyphicon-save'></span> Sign Up</button>
                 </form>
+
+                <p>
+                    {% for violation in violations %}
+                        <li>{{ violation }}</li>
+                    {% endfor %}
+                </p>
             </div>
         </div>
 

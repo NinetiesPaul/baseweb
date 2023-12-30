@@ -2,17 +2,22 @@
 
 namespace App\Controllers;
 
-use App\Templates;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 class MainController
 {   
+    protected $templating;
+
     public function __construct()
     {
+        $loader = new FilesystemLoader('templates');
+        $this->templating = new Environment($loader, []);
     }
     
     public function index()
     {
-        new Templates('index.html');
+        echo $this->templating->render('index.html', []);
     }
 
     public function login()
@@ -25,11 +30,19 @@ class MainController
             unset($_SESSION['error_msg']);
         }
 
-        new Templates('login.html', [ 'MSG' => $msg ]);
+        echo $this->templating->render('login.html', [ 'error_msg' => $msg ]);
     }
     
     public function register()
     {
-        new Templates('register.html');
+        session_start();
+
+        $violations = '';
+        if ($_SESSION['violations']) {
+            $violations = $_SESSION['violations'];
+            unset($_SESSION['violations']);
+        }
+
+        echo $this->templating->render('register.html', [ 'violations' => $violations ]);
     }
 }
