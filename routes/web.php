@@ -1,35 +1,41 @@
 <?php
 
 use Pecee\SimpleRouter\SimpleRouter;
+use App\Controllers\AuthenticationController;
 use App\Controllers\MainController;
-use App\Controllers\DataController;
+use App\Controllers\UserController;
 
 SimpleRouter::get('/', function() {
-    $admin = new MainController();
-    $admin->index();
+    $main = new MainController();
+    $main->index();
 });
 
-SimpleRouter::get('/dados', function() {
-    $admin = new DataController();
-    $admin->verDados();
+SimpleRouter::get('/register', function() {
+    $main = new MainController();
+    $main->register();
 });
 
-SimpleRouter::get('/dado/{idDado}', function($idDado) {
-    $admin = new DataController();
-    $admin->verDado($idDado);
+SimpleRouter::get('/login', function() {
+    $main = new MainController();
+    $main->login();
 });
 
-SimpleRouter::delete('/dado/{idDado}/delete', function($idDado) {
-    $admin = new DataController();
-    $admin->removerDado($idDado);
+SimpleRouter::post('/register', function() {
+    $user = new UserController();
+    $user->register();
 });
 
-SimpleRouter::put('/dado', function() {
-    $admin = new DataController();
-    $admin->alterarDado();
+SimpleRouter::post('/login', function() {
+    $auth = new AuthenticationController();
+    $auth->authenticateUser();
 });
 
-SimpleRouter::post('/dado', function() {
-    $admin = new DataController();
-    $admin->inserirDado();
+SimpleRouter::get('/home', function() {
+    $user = new UserController();
+    $user->home();
+});
+
+SimpleRouter::get('/logout', function() {
+    $auth = new AuthenticationController();
+    $auth->unauthenticateUser();
 });
