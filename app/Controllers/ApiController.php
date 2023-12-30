@@ -16,7 +16,10 @@ class ApiController
     {
         new Response([
             'success' => true,
-            'payload' => "API is healthy!"
+            'payload' => [
+                'message' => "API is healthy!",
+                'data' => []
+            ]
         ]);
     }
     
@@ -63,6 +66,7 @@ class ApiController
     {
         session_start();
         session_destroy();
+    
         new Response([ 'success' => true, 'payload' => [
             'message' => 'LOGOUT_SUCCESSFFUL',
             'data' => []
