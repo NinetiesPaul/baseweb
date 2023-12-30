@@ -17,7 +17,15 @@ class MainController
 
     public function login()
     {
-        new Templates('login.html');
+        session_start();
+
+        $msg = '';
+        if ($_SESSION['error_msg']) {
+            $msg = $_SESSION['error_msg'];
+            unset($_SESSION['error_msg']);
+        }
+
+        new Templates('login.html', [ 'MSG' => $msg ]);
     }
     
     public function register()
