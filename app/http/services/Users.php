@@ -21,4 +21,10 @@ class Users
 
         $user->save();
     }
+
+    public function listAll()
+    {
+        $users = new ModelsUsers([]);
+        return $users->find([], false);
+    }
 }

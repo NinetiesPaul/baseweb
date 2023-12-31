@@ -30,6 +30,11 @@ SimpleRouter::get('/home', function() {
     $user->home();
 });
 
+SimpleRouter::get('/users', function() {
+    $user = new UserController();
+    $user->users();
+});
+
 SimpleRouter::get('/logout', function() {
     $auth = new AuthenticationController();
     $auth->unauthenticateUser();

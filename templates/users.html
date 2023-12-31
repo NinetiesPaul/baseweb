@@ -27,14 +27,14 @@
             deletarAluno(this.value);
         });
         
-        $(document).ready( function () {
+        /*$(document).ready( function () {
             $('#tableAlunos').DataTable({
                 "paging": true,
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"
                 }
             });
-        });        
+        });*/
         
         </script>
         <title>baseWeb :: Cadastro</title>
@@ -76,7 +76,13 @@
                         <tr><td>Nome</td><td>Editar</td><td>Excluir</td></tr>
                     </thead>
                     <tbody>
-                        {DADOS}
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.name }}</td>
+                                <td><a href='/edit'><span class='glyphicon glyphicon-edit'></span> Editar</a></td>
+                                <td><a href='/delete'><span class='glyphicon glyphicon-remove'></span> Excluir</a></td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
 

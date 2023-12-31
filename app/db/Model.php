@@ -30,19 +30,23 @@ class Model extends Storage
         $query->execute($this->values);
     }
 
-    public function find($parameters, $findOne = false)
+    public function find($parameters = [], $findOne = false)
     {
         $selectColumns = $this->prepareFieldsForSelect();
 
-        $sql = "SELECT $selectColumns FROM $this->tableName WHERE ";
+        $sql = "SELECT $selectColumns FROM $this->tableName";
         $total = count($parameters);
 
-        foreach($parameters as $column => $value) {
-            $sql .= " $column = '$value' ";
-            $total -= 1;
+        if ($total > 0) {
+            $sql .= " WHERE ";
 
-            if ($total > 0) {
-                $sql .= "AND";
+            foreach($parameters as $column => $value) {
+                $sql .= " $column = '$value' ";
+                $total -= 1;
+
+                if ($total > 0) {
+                    $sql .= "AND";
+                }
             }
         }
 
@@ -50,9 +54,9 @@ class Model extends Storage
 
         $result = false;
         if ($findOne) {
-            $result = $query->fetch(PDO::FETCH_OBJ);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
         } else {
-            $result = $query->fetchAll(PDO::FETCH_OBJ);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
         }
 
         return $result;

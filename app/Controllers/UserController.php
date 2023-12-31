@@ -23,6 +23,14 @@ class UserController
         echo $this->templating->render('home.html', []);
     }
 
+    public function users()
+    {
+        $userService = new Users();
+        $users = $userService->listAll();
+
+        echo $this->templating->render('users.html', [ 'users' => $users ]);
+    }
+
     public function register()
     {
         $request = input()->all();
