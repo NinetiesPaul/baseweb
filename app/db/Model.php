@@ -13,6 +13,8 @@ class Model extends Storage
     public $ignoreFields;
 
     public $placeholders;
+
+    public $placeholdersForUpdate;
     
     public $fields;
 
@@ -62,14 +64,46 @@ class Model extends Storage
         return $result;
     }
 
+    public function update($byId = false)
+    {
+        $sql = "UPDATE $this->tableName SET $this->placeholdersForUpdate";
+
+        if ($byId) {
+            $sql .= " WHERE id = $byId";
+        }
+
+        $query = $this->conn->prepare($sql);
+        $query->execute($this->values);
+    }
+
+    public function delete($byId)
+    {
+        $sql = "DELETE FROM $this->tableName WHERE id = $byId";
+
+        $query = $this->conn->prepare($sql);
+        $query->execute($this->values);
+    }
+
     protected function prepareFields($fields)
     {
+        if ($fields['id']) {
+            unset($fields['id']);
+        }
+        if ($fields['_method']) {
+            unset($fields['_method']);
+        }
+
         $this->values = $fields;
         $this->fields = implode(',', array_keys($fields));
 
         $this->placeholders = implode(',', array_map(function($field) {
-            return ':'.$field;
+            return ':' . $field;
         }, array_keys($fields)));
+
+        $this->placeholdersForUpdate = implode(',', array_map(function($field) {
+            return $field . '=:' . $field;
+        }, array_keys($fields)));
+
     }
 
     protected function prepareFieldsForSelect()

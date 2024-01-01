@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Http\Response;
 use App\Http\Services\Authentication;
 use App\Http\Services\Users;
 use App\Utils\Validator;
@@ -26,12 +27,12 @@ class UserController
     public function users()
     {
         $userService = new Users();
-        $users = $userService->listAll();
+        $users = $userService->findAll();
 
         echo $this->templating->render('users.html', [ 'users' => $users ]);
     }
 
-    public function register()
+    public function createUser()
     {
         $request = input()->all();
         
@@ -39,7 +40,7 @@ class UserController
 
         $violations = $validator->validate(
             [
-                'name' => [ 'required', 'min:3', 'max:50' ],
+                'name' => [ 'required', 'min:5', 'max:50' ],
                 'email' => [ 'required', 'email' ],
                 'password' => [ 'required', 'min:6', 'max:20' ]
             ]
@@ -69,5 +70,58 @@ class UserController
         $authentication->authenticate($request);
 
         redirect('/home');
+    }
+
+    public function viewUser($id)
+    {
+        $userService = new Users();
+        $user = $userService->findOne([ 'id' => $id ]);
+
+        echo $this->templating->render('user.html', [ 'user' => $user ]);
+    }
+
+    public function updateUser()
+    {
+        $request = input()->all();
+        
+        $validator = new Validator($request);
+
+        $violations = $validator->validate(
+            [
+                'name' => [ 'required', 'min:5', 'max:50' ],
+                'email' => [ 'required', 'email' ]
+            ]
+        );
+
+        if ($violations) {
+            $messages = [];
+
+            foreach ($violations as $violation) {
+                foreach ($violation as $message) {
+                    $messages[] = $message;
+                }
+            }
+        }
+
+        $userService = new Users();
+        $userService->update($request);
+
+        redirect('/user/' . $request['id']);
+    }
+
+    public function deleteUser()
+    {
+        $request = input()->all();
+
+        $userService = new Users();
+        $userService->delete($request['id']);
+
+        new Response([
+            'success' => true,
+            'payload' => [
+                'message' => "USER_DELETED",
+                'data' => []
+            ]
+        ]);
     }
 }

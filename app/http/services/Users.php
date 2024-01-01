@@ -22,9 +22,27 @@ class Users
         $user->save();
     }
 
-    public function listAll()
+    public function findAll()
     {
-        $users = new ModelsUsers([]);
+        $users = new ModelsUsers();
         return $users->find([], false);
+    }
+
+    public function findOne($data)
+    {
+        $users = new ModelsUsers();
+        return $users->find($data, true);
+    }
+
+    public function update($data)
+    {
+        $users = new ModelsUsers($data);
+        return $users->update($data['id']);
+    }
+
+    public function delete($id)
+    {
+        $users = new ModelsUsers();
+        return $users->delete($id);
     }
 }

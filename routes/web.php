@@ -22,7 +22,7 @@ SimpleRouter::get('/login', function() {
 
 SimpleRouter::post('/register', function() {
     $user = new UserController();
-    $user->register();
+    $user->createUser();
 });
 
 SimpleRouter::get('/home', function() {
@@ -33,6 +33,21 @@ SimpleRouter::get('/home', function() {
 SimpleRouter::get('/users', function() {
     $user = new UserController();
     $user->users();
+});
+
+SimpleRouter::get('/user/{id}', function($id) {
+    $user = new UserController();
+    $user->viewUser($id);
+});
+
+SimpleRouter::put('/user', function() {
+    $user = new UserController();
+    $user->updateUser();
+});
+
+SimpleRouter::delete('/user', function() {
+    $user = new UserController();
+    $user->deleteUser();
 });
 
 SimpleRouter::get('/logout', function() {
