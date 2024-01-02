@@ -6,22 +6,55 @@ use App\Http\Response;
 use App\Http\Services\Authentication;
 use App\Http\Services\Users;
 use App\Utils\Validator;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 
-class UserController
+class UserController extends MainController
 {
-    protected $templating;
+    protected $loggedAs;
 
     public function __construct()
     {
-        $loader = new FilesystemLoader('templates');
-        $this->templating = new Environment($loader, []);        
+        parent::__construct();
+        session_start();
+
+        if (isset($_SESSION['user'])) {
+            $this->loggedAs = $_SESSION['user']['name'];
+        }
+    }
+
+    public function index()
+    {
+        echo $this->templating->render('index.html', []);
+    }
+
+    public function login()
+    {
+        session_start();
+
+        $msg = '';
+        if ($_SESSION['error_msg']) {
+            $msg = $_SESSION['error_msg'];
+            unset($_SESSION['error_msg']);
+        }
+
+        echo $this->templating->render('login.html', [ 'error_msg' => $msg ]);
+    }
+    
+    public function register()
+    {
+        session_start();
+
+        $violations = '';
+        if ($_SESSION['violations']) {
+            $violations = $_SESSION['violations'];
+            unset($_SESSION['violations']);
+        }
+
+        echo $this->templating->render('register.html', [ 'violations' => $violations ]);
     }
 
     public function home()
     {
-        echo $this->templating->render('home.html', []);
+        echo $this->templating->render('home.html', [ 'loggedAs' => $this->loggedAs ]);
     }
 
     public function users()
@@ -29,7 +62,7 @@ class UserController
         $userService = new Users();
         $users = $userService->findAll();
 
-        echo $this->templating->render('users.html', [ 'users' => $users ]);
+        echo $this->templating->render('users.html', [ 'users' => $users, 'loggedAs' => $this->loggedAs ]);
     }
 
     public function createUser()
@@ -67,7 +100,10 @@ class UserController
         $userService->create($request);
         
         $authentication = new Authentication();
-        $authentication->authenticate($request);
+        $user = $authentication->authenticate($request);
+
+        session_start();
+        $_SESSION['user'] = $user;
 
         redirect('/home');
     }
@@ -77,7 +113,7 @@ class UserController
         $userService = new Users();
         $user = $userService->findOne([ 'id' => $id ]);
 
-        echo $this->templating->render('user.html', [ 'user' => $user ]);
+        echo $this->templating->render('user.html', [ 'user' => $user, 'loggedAs' => $this->loggedAs ]);
     }
 
     public function updateUser()

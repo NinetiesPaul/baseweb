@@ -17,9 +17,10 @@ class AuthenticationController
 
         session_start();
         if ($user) {
+            $_SESSION['user'] = $user;
             redirect('/home');
         } else {
-            $_SESSION['error_msg'] = 'Falha de autenticação';
+            $_SESSION['error_msg'] = 'AUTH_FAILED';
             redirect('/login');
         }
     }

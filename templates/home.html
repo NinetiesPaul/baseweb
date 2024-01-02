@@ -7,16 +7,16 @@
         <link href="includes/css/navbar.css" rel="stylesheet">
         <link href="includes/css/login.css" rel="stylesheet">
         <script src="includes/js/jquery.js"></script>
-        <title>baseWeb :: Home Page</title>
+        <title>BaseApp :: Home Page</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="#">baseWeb</a>
+            <a class="navbar-brand" href="#">BaseApp</a>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Menu de navegação
+                            Logado como {{ loggedAs }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/home">Home</a>
@@ -29,8 +29,8 @@
 
         <div class="container text-center">
             <div class="jumbotron">
-                <h3>Bem-vindo</h3><p/>
-            
+                <h3>Bem-vindo, {{ loggedAs }} </h3><p/>
+                <a href="/users">Users</a></a>
                 
             </div>
         </div>

@@ -9,20 +9,20 @@
         </script>
         <script>
         </script>
-        <title>baseWeb :: Criação de usuário</title>
+        <title>BaseApp :: Criação de usuário</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="../..">baseWeb</a>
+            <a class="navbar-brand" href="#">BaseApp</a>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Menu de navegação
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="../dados">Home</a>
-                        </div>
+                            <a class="dropdown-item" href="#">Home</a>
+                        </div -->
                     </li>
                 </ul>
             </div>
@@ -48,7 +48,11 @@
                 </form>
 
                 <p>
-                    {{ error_msg }}
+                    {% if error_msg == 'AUTH_FAILED' %}
+                        <div class="alert alert-danger" role="alert">
+                            <span class='glyphicon glyphicon-remove'></span> Falha de autenticação
+                        </div>
+                    {% endif %}
                 </p>
             </div>
         </div>
