@@ -66,11 +66,5 @@ vendor/bin/phpunit tests/
 ### __Users__
 #### User creation
 ```
-curl --location 'http://localhost:8080/register' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "Tony Soprano",
-    "email": "t.soprano@mobsters.com",
-    "password": "123456"
-}'
+
 ```
