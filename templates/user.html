@@ -32,11 +32,11 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Logado como {{ loggedAs }}
+                            Logged as {{ loggedAs }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/home">Home</a>
-                            <a class="dropdown-item" href="/logout">Sair</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -46,12 +46,12 @@
         <div class="container">
             <div class="jumbotron text-center">
                 <div class="edit_user">
-                    <p><strong>Edição de Usuário</strong> <a href='#' style="font-size: small;" class="show_view_user"><span class='glyphicon glyphicon glyphicon-eye-open'></span> </a></p>
+                    <p><strong>Update {{user.name}}</strong> <a href='#' style="font-size: small;" class="show_view_user"><span class='glyphicon glyphicon glyphicon-eye-open'></span> </a></p>
                     <form action="/user" method="post" role="form" class="form-horizontal " >
                         <input type="hidden" name="_method" value="PUT" />
                         <input type="hidden" name="id" id="id" value="{{user.id}}" />
                         <div class="form-group row justify-content-center ">
-                            <label for="name" class="col-form-label col-md-2 col-form-label-sm">Nome:</label>
+                            <label for="name" class="col-form-label col-md-2 col-form-label-sm">Name:</label>
                             <div class="col-md-3">
                                     <input type="text" name="name" id="name" placeholder="Nome" aria-describedby="disponibilidade" value="{{user.name}}" class="form-control form-control-sm" required >
                             </div>
@@ -66,11 +66,11 @@
                     </form>
                 </div>
                 <div class="view_user">
-                    <p><strong>Usuário {{user.name}}</strong> <a href='#' style="font-size: small;" class="show_edit_form"><span class='glyphicon glyphicon-edit'></span> </a></p>
+                    <p><strong>User {{user.name}}</strong> <a href='#' style="font-size: small;" class="show_edit_form"><span class='glyphicon glyphicon-edit'></span> </a></p>
                     <table style="margin-left: auto; margin-right: auto; font-size: 13; width: auto !important;" class="table hover" id="tableAlunos">
                         <tbody>
                             <tr>
-                                <td><b>Nome</b> </td><td>{{ user.name }}</td>
+                                <td><b>Name</b> </td><td>{{ user.name }}</td>
                             </tr>
                             <tr>
                                 <td><b>E-mail</b> </td><td>{{ user.email }}</td>
