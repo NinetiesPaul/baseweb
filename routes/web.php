@@ -1,35 +1,67 @@
 <?php
 
 use Pecee\SimpleRouter\SimpleRouter;
-use App\Controllers\MainController;
-use App\Controllers\DataController;
+use App\Controllers\AuthenticationController;
+use App\Controllers\UserController;
+use App\Http\Middleware\Auth;
+use App\Http\Middleware\NoAuth;
 
-SimpleRouter::get('/', function() {
-    $admin = new MainController();
-    $admin->index();
+SimpleRouter::group(['middleware' => NoAuth::class], function () {
+
+    SimpleRouter::get('/', function() {
+        $user = new UserController();
+        $user->index();
+    });
+
+    SimpleRouter::get('/login', function() {
+        $user = new UserController();
+        $user->login();
+    });
+
+    SimpleRouter::get('/register', function() {
+        $user = new UserController();
+        $user->register();
+    });
+
+    SimpleRouter::post('/register', function() {
+        $user = new UserController();
+        $user->createUser();
+    });
+
+    SimpleRouter::post('/login', function() {
+        $auth = new AuthenticationController();
+        $auth->authenticateUser();
+    });
 });
 
-SimpleRouter::get('/dados', function() {
-    $admin = new DataController();
-    $admin->verDados();
-});
+SimpleRouter::group(['middleware' => Auth::class], function () {
+    SimpleRouter::get('/home', function() {
+        $user = new UserController();
+        $user->home();
+    });
 
-SimpleRouter::get('/dado/{idDado}', function($idDado) {
-    $admin = new DataController();
-    $admin->verDado($idDado);
+    SimpleRouter::get('/users', function() {
+        $user = new UserController();
+        $user->users();
+    });
+    
+    SimpleRouter::get('/user/{id}', function($id) {
+        $user = new UserController();
+        $user->viewUser($id);
+    });
+    
+    SimpleRouter::put('/user', function() {
+        $user = new UserController();
+        $user->updateUser();
+    });
+    
+    SimpleRouter::delete('/user', function() {
+        $user = new UserController();
+        $user->deleteUser();
+    });
 });
-
-SimpleRouter::delete('/dado/{idDado}/delete', function($idDado) {
-    $admin = new DataController();
-    $admin->removerDado($idDado);
-});
-
-SimpleRouter::put('/dado', function() {
-    $admin = new DataController();
-    $admin->alterarDado();
-});
-
-SimpleRouter::post('/dado', function() {
-    $admin = new DataController();
-    $admin->inserirDado();
+    
+SimpleRouter::get('/logout', function() {
+    $auth = new AuthenticationController();
+    $auth->unauthenticateUser();
 });

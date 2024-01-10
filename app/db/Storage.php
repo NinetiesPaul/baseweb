@@ -3,11 +3,10 @@
 namespace App\DB;
 
 use PDO;
-use App\DB\Storage\DadoStorage;
 
-class Conn
+class Storage
 {
-    protected $db;
+    protected $conn;
 
     public function __construct()
     {
@@ -16,14 +15,9 @@ class Conn
         $user_db = getenv('DB_USER');
         $password_db = getenv('DB_PASSWORD');
 
-        $pdo = new PDO("pgsql:host=$localhost_db; dbname=$dbname_db", $user_db, $password_db, []);
+        $pdo = new PDO("mysql:host=$localhost_db; dbname=$dbname_db", $user_db, $password_db, []);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $this->db = $pdo;
-    }
-    
-    public function connect()
-    {
-        return $this->db;
+        $this->conn = $pdo;
     }
 }

@@ -32,9 +32,10 @@ class CreateUserTable extends AbstractMigration
     public function change()
     {
         $table = $this->table('users');
-        $table->addColumn('name', 'string')
-            ->addColumn('email', 'string')
-            ->addColumn('password', 'string')
+        $table->addColumn('name', 'string', [ 'null' => false ])
+            ->addColumn('email', 'string', [ 'null' => false ])
+            ->addColumn('password', 'string', [ 'null' => false ])
+            ->addIndex(['email'], [ 'unique' => true ])
             ->create();
     }
 }

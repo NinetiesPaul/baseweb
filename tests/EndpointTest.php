@@ -12,6 +12,6 @@ class EndpointTest extends TestCase
         $response = $client->request('GET', '/health',);
         $response = json_decode($response->getBody(), true);
 
-        $this->assertEquals([ 'success' => true, 'payload' => 'API is healthy!' ], $response);
+        $this->assertEquals([ 'success' => true, 'payload' => [ 'message' => 'API is healthy!', 'data' => [] ] ], $response);
     }
 }

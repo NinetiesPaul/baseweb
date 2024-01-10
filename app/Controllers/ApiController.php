@@ -6,6 +6,7 @@ use App\Http\Response;
 
 class ApiController
 {
+
     public function __construct()
     {
     }
@@ -14,8 +15,10 @@ class ApiController
     {
         new Response([
             'success' => true,
-            'payload' => "API is healthy!"
+            'payload' => [
+                'message' => "API is healthy!",
+                'data' => []
+            ]
         ]);
     }
-
 }
